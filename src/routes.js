@@ -23,7 +23,7 @@ const contactController = require('./controllers/contactController')
 routes.get('/ping', healthController.ping)
 
 // Rota que retorna o arquivo JSON
-app.get('/json', (req, res) => {
+routes.get('/json', (req, res) => {
   // Define o caminho completo para o arquivo JSON
   const caminhoArquivo = path.join(__dirname, './swagger.json');
 
