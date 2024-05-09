@@ -21,6 +21,16 @@ const contactController = require('./controllers/contactController')
 
 // API endpoint to check if server is alive
 routes.get('/ping', healthController.ping)
+
+// Rota que retorna o arquivo JSON
+app.get('/json', (req, res) => {
+  // Define o caminho completo para o arquivo JSON
+  const caminhoArquivo = path.join(__dirname, './swagger.json');
+
+  // Envia o arquivo JSON como resposta
+  res.sendFile(caminhoArquivo);
+});
+
 // API basic callback
 if (enableLocalCallbackExample) {
   routes.post('/localCallbackExample', [middleware.apikey, middleware.rateLimiter], healthController.localCallbackExample)
@@ -182,6 +192,7 @@ contactRouter.post('/getProfilePicUrl/:sessionId', [middleware.sessionNameValida
 if (enableSwaggerEndpoint) {
   routes.use('/api-docs', swaggerUi.serve)
   routes.get('/api-docs', swaggerUi.setup(swaggerDocument) /* #swagger.ignore = true */)
+  
 }
 
 module.exports = { routes }
