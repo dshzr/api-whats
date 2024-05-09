@@ -23,13 +23,12 @@ const contactController = require('./controllers/contactController')
 routes.get('/ping', healthController.ping)
 
 // Rota que retorna o arquivo JSON
-routes.get('/json', (req, res) => {
-  // Define o caminho completo para o arquivo JSON
-  const caminhoArquivo = path.join(__dirname, './swagger.json');
-
-  // Envia o arquivo JSON como resposta
-  res.sendFile(caminhoArquivo);
+routes.use(function(req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
 });
+
 
 // API basic callback
 if (enableLocalCallbackExample) {
